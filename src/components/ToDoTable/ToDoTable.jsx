@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Table } from "react-bootstrap";
 import TableLoader from "../Utility/TableLoader/TableLoader";
-
+import {BiSort} from 'react-icons/bi';
 function ToDoTable({ TodoList, Loader }) {
+const [SortedData, setSrotedData] = useState(TodoList);
+
+const handleSorting=(e)=>{
+  let sortId = e.target.id;
+  // setSrotedData((Prevs)=>{
+  //   Prevs.sort((a,b)=>(
+  //     Number(a[sortId])-Number(b[sortId])
+  //   ))
+  // })
+}
   return (
     <>
       <Table striped bordered hover responsive="xl">
         <thead>
-          <tr>
-            <th>User Id</th>
-            <th>Task Name</th>
-            <th>Status</th>
+          <tr onClick={(e)=> handleSorting(e)}>
+            <th>User Id <span id={"userId"}><BiSort/></span></th>
+            <th>Task Name <span id={"title"}><BiSort/></span></th>
+            <th>Status <span id={"completed"}><BiSort/></span></th>
           </tr>
         </thead>
         <tbody>

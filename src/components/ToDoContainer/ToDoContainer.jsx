@@ -1,26 +1,13 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ToDoTable from "../ToDoTable/ToDoTable";
-import { GET_TODO_LIST_DATA } from "../../EndPoints/EndPoints";
+import { getTodoListData } from "../../Redux/Actions/GetTodoListDataAction";
 function ToDoContainer() {
-  const [TodoList, setTodoList] = useState([]);
-  const [Loader, setLoader] = useState(true);
-
+  const dispatch = useDispatch();
+  const Loader = useSelector((data) => data.TodoListData.isTodoDataLoading);
+  const TodoList = useSelector((data) => data.TodoListData.todoListData);
   useEffect(() => {
-    const getTodoListData = () => {
-      axios
-        .get(GET_TODO_LIST_DATA)
-        .then((res) => {
-          setLoader(false);
-
-          setTodoList(res.data);
-        })
-        .catch((error) => {
-          setLoader(false);
-          console.log("error", error);
-        });
-    };
-    getTodoListData();
+    dispatch(getTodoListData());
   }, []);
   return (
     <>
