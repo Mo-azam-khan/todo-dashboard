@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,yBAAyB,CAAC;EACxB,OAAO,EAAE,GAAG;EACZ,UAAU,EAAE,CAAC,CAAC,GAAG,CAAC,IAAI,CAAC,CAAC,CAAC,oBAAoB,EAAE,CAAC,CAAC,GAAG,CAAC,GAAG,CAAC,CAAC,CAAC,sBAAsB;EACjF,SAAS,EAAE,6CAA6C;CACzD;;AACD,UAAU,CAAV,gBAAU;EACN,EAAE;IACE,UAAU,EAAE,OAAO;;EAEvB,IAAI;IACA,UAAU,EAAE,OAAO",
+    "sources": [
+        "TableLoader.scss"
+    ],
+    "names": [],
+    "file": "TableLoader.css"
+}
