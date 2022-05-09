@@ -1,0 +1,13 @@
+.skleton-loader-table-row {
+  opacity: 0.7;
+  box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.377), 0 1px 3px 0 rgba(59, 58, 58, 0.13);
+  animation: skeleton-loading 1s linear alternate infinite;
+}
+@keyframes skeleton-loading{
+    0%{
+        background: #f2f2f2;
+    }
+    100%{
+        background: #d6d6d6;
+    }
+}

@@ -1,0 +1,1 @@
+export const GET_TODO_LIST_DATA = "https://jsonplaceholder.typicode.com/todos/"

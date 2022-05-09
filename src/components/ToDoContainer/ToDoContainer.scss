@@ -1,0 +1,17 @@
+@media (max-width: 540px) { 
+    .input-Search-container{
+    max-width: 100vw;
+    padding: 1rem;
+} }
+@media (min-width: 540px) { 
+.input-Search-container{
+    max-width: 40vw;
+    padding: 1rem;
+}
+}
+
+.pagination-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
