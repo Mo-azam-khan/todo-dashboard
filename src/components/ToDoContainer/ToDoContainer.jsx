@@ -12,6 +12,7 @@ function ToDoContainer() {
   const [searchValue, setSearchValue] = useState("");
   const [pagesCount, setPagesCount] = useState([1]);
   const [selectePage, setSelectePage] = useState(1);
+  const [paginatedList, setPaginatedList] = useState(TodoList)
   useEffect(() => {
     dispatch(getTodoListData());
   },[]);
@@ -19,6 +20,10 @@ function ToDoContainer() {
   useEffect(() => {
     setPagesCount([ ...Array(Math.ceil(TodoList.length/10)).keys() ].map( i => i+1));
   }, [TodoList.length]);
+
+  useEffect(() => {
+    setPaginatedList(TodoList.slice(Math.ceil((selectePage-1)*10),Math.ceil(selectePage*10)))
+  }, [selectePage]);
   
   const InputSearch = (text) => {
     setSearchValue(text);
@@ -27,7 +32,18 @@ function ToDoContainer() {
     InputSearch(text);
   }, 500);
   const handlePagination =(e)=>{
-    setSelectePage(e.target.innerText)
+    if(e.target.id==="PREVS")
+    {
+      setSelectePage((Prevs)=>(Prevs-1));
+    }
+    else if(e.target.id === "NEXT")
+    {
+      setSelectePage((Prevs)=>(Prevs+1));
+    }
+    else{
+      setSelectePage(Number(e.target.id));
+    }
+   
   }
   return (
     <>
@@ -39,29 +55,30 @@ function ToDoContainer() {
         />
       </div>
       <ToDoTable
-        TodoList={TodoList}
+        TodoList={paginatedList}
         Loader={Loader}
         searchValue={searchValue}
       />
       <div className="pagination-container" >
         <Pagination onClick={(e)=>handlePagination(e)}>
-          <Pagination.Prev />
+          <Pagination.Prev id={"PREVS"} />
 
           {pagesCount !== undefined &&
             pagesCount !== null &&
             pagesCount.length !== 0 &&
             pagesCount.filter((data)=>data<4).map((data) => {
-              return <Pagination.Item>{data}</Pagination.Item>;
+              return <Pagination.Item id={data} active={data === Number(selectePage)}>{data}</Pagination.Item>;
             })}
+
           <Pagination.Ellipsis />
 
           {pagesCount !== undefined &&
             pagesCount !== null &&
             pagesCount.length !== 0 &&
             pagesCount.filter((data)=>(data>((TodoList.length/10)-3))).map((data) => {
-              return <Pagination.Item>{data}</Pagination.Item>;
+              return <Pagination.Item id={data} active={data === Number(selectePage)}>{data}</Pagination.Item>;
             })}
-          <Pagination.Next />
+          <Pagination.Next id={"NEXT"} />
         </Pagination>
       </div>
     </>
