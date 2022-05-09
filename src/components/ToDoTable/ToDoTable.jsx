@@ -2,26 +2,41 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Table } from "react-bootstrap";
 import TableLoader from "../Utility/TableLoader/TableLoader";
-import {BiSort} from 'react-icons/bi';
-function ToDoTable({ TodoList, Loader }) {
-const [SortedData, setSrotedData] = useState(TodoList);
+import { BiSort } from "react-icons/bi";
+function ToDoTable({ TodoList, Loader, searchValue }) {
+  const [SortedData, setSrotedData] = useState(TodoList);
 
-const handleSorting=(e)=>{
-  let sortId = e.target.id;
-  // setSrotedData((Prevs)=>{
-  //   Prevs.sort((a,b)=>(
-  //     Number(a[sortId])-Number(b[sortId])
-  //   ))
-  // })
-}
+  const handleSorting = (e) => {
+    let sortId = e.target.id;
+    // setSrotedData((Prevs)=>{
+    //   Prevs.sort((a,b)=>(
+    //     Number(a[sortId])-Number(b[sortId])
+    //   ))
+    // })
+  };
   return (
     <>
       <Table striped bordered hover responsive="xl">
         <thead>
-          <tr onClick={(e)=> handleSorting(e)}>
-            <th>User Id <span id={"userId"}><BiSort/></span></th>
-            <th>Task Name <span id={"title"}><BiSort/></span></th>
-            <th>Status <span id={"completed"}><BiSort/></span></th>
+          <tr onClick={(e) => handleSorting(e)}>
+            <th>
+              User Id{" "}
+              <span id={"userId"}>
+                <BiSort />
+              </span>
+            </th>
+            <th>
+              Task Name{" "}
+              <span id={"title"}>
+                <BiSort />
+              </span>
+            </th>
+            <th>
+              Status{" "}
+              <span id={"completed"}>
+                <BiSort />
+              </span>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -31,7 +46,14 @@ const handleSorting=(e)=>{
             TodoList !== undefined &&
             TodoList !== null &&
             TodoList.length !== 0 &&
-            TodoList.map((data) => {
+            TodoList.filter((value) => 
+                (value.userId.toString().includes(searchValue) ||
+                value.title.toLowerCase().includes(searchValue.toLowerCase()) ||
+                value.completed
+                  .toString()
+                  .toLowerCase()
+                  .includes(searchValue.toLowerCase()))
+            ).map((data) => {
               return (
                 <tr key={data.id}>
                   <td>{data.userId}</td>
@@ -50,6 +72,7 @@ const handleSorting=(e)=>{
 ToDoTable.propTypes = {
   TodoList: PropTypes.arrayOf(Object),
   Loader: PropTypes.bool,
+  searchValue: PropTypes.string,
 };
 
 export default React.memo(ToDoTable);
